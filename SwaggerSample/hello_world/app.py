@@ -1,3 +1,4 @@
+import sys
 import json
 
 
@@ -69,10 +70,11 @@ def lambda_handler(event, context):
         https: // docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
     """
 
+    version = f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}'
 
     return {
         "statusCode": 200,
         "body": json.dumps(
-            {"message": "hello world"},
+            {"python": version},
         ),
     }
