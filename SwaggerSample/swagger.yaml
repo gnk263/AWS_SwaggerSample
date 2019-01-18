@@ -3,7 +3,7 @@ info:
   description: "SwaggerとAPI Gatewayのサンプルです。"
   version: "1.0.0"
   title: "Swagger Sample"
-host: "petstore.swagger.io"
+#host: "petstore.swagger.io"
 basePath: "/"
 tags:
   - name: "Version"
