@@ -10,8 +10,27 @@ Globals:
     Function:
         Timeout: 3
 
+Metadata:
+    AWS::CloudFormation::Interface:
+        ParameterGroups:
+          - Label:
+              default: General Configuration
+            Parameters:
+              - MyBucket
+        ParameterLabels:
+          MyBucket:
+            default: hogehoge
 
 Resources:
+    PythonVersionApi:
+        Type: AWS::Serverless::Api
+        Properties:
+            StageName: test
+            DefinitionBody:
+                Fn::Transform:
+                    Name: AWS::Include
+                    Parameters:
+                        Location: !sub s3://${MyBucket}/swagger.yml
 
     HelloWorldFunction:
         Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -23,8 +42,9 @@ Resources:
                 HelloWorld:
                     Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
                     Properties:
-                        Path: /hello
+                        Path: /version
                         Method: get
+                        RestApiId: !Ref PythonVersionApi
 
 Outputs:
 
