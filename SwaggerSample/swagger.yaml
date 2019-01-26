@@ -36,9 +36,9 @@ definitions:
   Version:
     type: "object"
     required:
-      - "version"
+      - "python"
     properties:
-      version:
+      python:
         type: "string"
         #example という文字列があると、sam deployで怒られる
         #example: "3.6.2"
