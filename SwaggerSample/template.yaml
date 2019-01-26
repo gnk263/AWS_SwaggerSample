@@ -22,7 +22,7 @@ Resources:
                         Location: s3://cm-fujii.genki-sam-test-bucket/swagger.yaml
 
 
-    HelloWorldFunction:
+    PythonVersionFunction:
         Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
         Properties:
             CodeUri: hello_world/
@@ -38,14 +38,7 @@ Resources:
 
 Outputs:
 
-    HelloWorldApi:
-      Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+  PythonVersionApiUrl:
+      Description: "API Gateway endpoint URL for Prod stage for Python Version Function"
       Value: !Sub "https://${PythonVersionApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/version"
 
-#    HelloWorldFunction:
-#      Description: "Hello World Lambda Function ARN"
-#      Value: !GetAtt HelloWorldFunction.Arn
-
-#    HelloWorldFunctionIamRole:
-#      Description: "Implicit IAM Role created for Hello World function"
-#      Value: !GetAtt HelloWorldFunctionRole.Arn

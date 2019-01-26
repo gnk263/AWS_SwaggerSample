@@ -3,7 +3,6 @@ info:
   description: "SwaggerとAPI Gatewayのサンプルです。"
   version: "1.0.0"
   title: "Swagger Sample"
-#host: "petstore.swagger.io"
 basePath: "/Prod"
 tags:
   - name: "Version"
@@ -28,7 +27,7 @@ paths:
       # https://docs.aws.amazon.com/ja_jp/apigateway/latest/developerguide/api-gateway-swagger-extensions-integration.html
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${HelloWorldFunction.Arn}/invocations
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PythonVersionFunction.Arn}/invocations
         passthroughBehavior: when_no_templates
         # HTTPメソッドはGETでも、API GatewayからLambdaの呼出はPOSTになる
         httpMethod: POST
