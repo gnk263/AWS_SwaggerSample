@@ -22,15 +22,15 @@ Metadata:
             default: hogehoge
 
 Resources:
-    PythonVersionApi:
-        Type: AWS::Serverless::Api
-        Properties:
-            StageName: test
-            DefinitionBody:
-                Fn::Transform:
-                    Name: AWS::Include
-                    Parameters:
-                        Location: !sub s3://${MyBucket}/swagger.yml
+#    PythonVersionApi:
+#        Type: AWS::Serverless::Api
+#        Properties:
+#            StageName: test
+#            DefinitionBody:
+#                Fn::Transform:
+#                    Name: AWS::Include
+#                    Parameters:
+#                        Location: !sub s3://cm-fujii.genki-sam-test-bucket/swagger.yaml
 
     HelloWorldFunction:
         Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -44,18 +44,18 @@ Resources:
                     Properties:
                         Path: /version
                         Method: get
-                        RestApiId: !Ref PythonVersionApi
+#                        RestApiId: !Ref PythonVersionApi
 
 Outputs:
 
     HelloWorldApi:
       Description: "API Gateway endpoint URL for Prod stage for Hello World function"
-      Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+      Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/version"
 
-    HelloWorldFunction:
-      Description: "Hello World Lambda Function ARN"
-      Value: !GetAtt HelloWorldFunction.Arn
+#    HelloWorldFunction:
+#      Description: "Hello World Lambda Function ARN"
+#      Value: !GetAtt HelloWorldFunction.Arn
 
-    HelloWorldFunctionIamRole:
-      Description: "Implicit IAM Role created for Hello World function"
-      Value: !GetAtt HelloWorldFunctionRole.Arn
+#    HelloWorldFunctionIamRole:
+#      Description: "Implicit IAM Role created for Hello World function"
+#      Value: !GetAtt HelloWorldFunctionRole.Arn
