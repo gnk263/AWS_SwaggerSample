@@ -4,7 +4,7 @@ info:
   version: "1.0.0"
   title: "Swagger Sample"
 #host: "petstore.swagger.io"
-basePath: "/"
+basePath: "/Prod"
 tags:
   - name: "Version"
 schemes:
@@ -16,7 +16,8 @@ paths:
         - "Version"
       summary: "Pythonバージョン取得"
       description: "Lambdaで動いているPythonのバージョンを取得します。"
-      operationId: "findPetsByStatus"
+      consumes:
+        - "application/json"
       produces:
         - "application/json"
       responses:
@@ -24,6 +25,14 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/Version"
+      # https://docs.aws.amazon.com/ja_jp/apigateway/latest/developerguide/api-gateway-swagger-extensions-integration.html
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${HelloWorldFunction.Arn}/invocations
+        passthroughBehavior: when_no_templates
+        # HTTPメソッドはGETでも、API GatewayからLambdaの呼出はPOSTになる
+        httpMethod: POST
+        type: aws_proxy
 definitions:
   Version:
     type: "object"
@@ -32,4 +41,5 @@ definitions:
     properties:
       version:
         type: "string"
-        example: "3.6.2"
+        #example という文字列があると、sam deployで怒られる
+        #example: "3.6.2"
